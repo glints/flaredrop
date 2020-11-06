@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>FLAREDROP</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vue.js" charset="utf-8"></script>
+    <script src="js/lodash-4.17.20.js"></script>
+    <script src="ripple-lib/build/ripple-latest.js"></script>
+    <script src="js/flaredrop.js"></script>
+    <script src="js/views.js"></script>
+
+
+  </head>
+  <body>
+
+    <div id="app">
+
+      <form id="signmessage">
+        <h1>Flaredrop</h1>
+
+        <div class="topbuttons">
+        <input type="button" class="btn btn-primary btn-lg btn-default" name="toggle" value="Toggle sign / submit form" @click="toggle('submit',$event)"/>
+        <input type="button" class="btn btn-primary btn-lg btn-default" name="toggle" value="Create address" @click="toggle('create',$event)"/>
+        </div>
+
+        <div v-cloak id="messages">
+          <div class="messages alert alert-info" v-for="message in messages">{{ message }}</div>
+        </div>
+
+        <div v-if="Object.keys(newaddress).length > 0" class="newaddress">
+          <ul>
+            <li v-for="(value,name) in newaddress"><span class="address-label">{{ name }}</span> : {{ value }}</li>
+          </ul>
+        </div>
+
+
+        <div v-if="submitOnly==false" class="ui-sign-wrap">
+          <label class="form-check-label" for="address">
+            XRP address:
+          </label>
+          <input class="form-control" id="address" type="text" name="address" v-model="address" size="400"/>
+
+          <label class="form-check-label" for="privkey">
+            XRP secret:
+          </label>
+          <input class="form-control" id="secret" type="text" name="secret" v-model="secret" size="400"/>
+
+          <label class="form-check-label" for="ethaddress">
+            Eth public key (address starting with 0x...):
+          </label>
+          <input class="form-control" id="message" type="text" name="ethaddress" v-model="ethaddress" size="400"/>
+          <label class="form-check-label" for="message">
+            Message (will be created based on the field above):
+          </label>
+          <input class="form-control" id="message" type="text" name="message" v-model="message" size="400" readonly/>
+
+        </div>
+
+          <div class="signed-wrap" v-if="signed!==''||submitOnly==true">
+          <label class="form-check-label" for="signed">
+            Signed TX:
+          </label>
+          <textarea class="form-control" id="signed" rows="10" name="signed" v-model="signed" size="400"></textarea>
+          </div>
+
+
+        <input v-if="submitOnly==false" type="button" class="btn btn-primary btn-lg btn-default" name="sign" value="Sign" @click="click('sign',$event)"/>
+        <input v-if="signed!==''||submitOnly==true" type="button" class="btn btn-primary btn-lg btn-default" name="send" value="Send tx" @click="sendTx('sign',$event)"/>
+      </form>
+    </div>
+
+
+</html>

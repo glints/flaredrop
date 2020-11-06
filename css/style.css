@@ -1,0 +1,9 @@
+h1{font-size:22px;}
+#signmessage{float:left;padding:20px;}
+label{font-size:11px;padding:5px 0px;}
+.newaddress{padding:10px;font-size:11px;}
+.newaddress ul,.newaddress ul li{list-style: none;list-style-type: lower-greek;}
+.address-label{font-style:italic;font-size:12px;}
+
+.topbuttons{width:100%;padding:5px;}
+.ui-sign-wrap{float:left;}
